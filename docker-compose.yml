@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ms-auth:
+    build: .
+    container_name: video-processing-ms-auth
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/video_processing_auth
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redis123
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - video-processing-network
+
+networks:
+  video-processing-network:
+    external: true
